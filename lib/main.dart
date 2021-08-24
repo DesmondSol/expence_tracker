@@ -7,21 +7,29 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Flutter Demo'),
+    return MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
         ),
-        body: Column(
-          children: <Widget>[
-            Card(
-              child: Container(
-                  color: Colors.blue, width: 100, child: Text('CHART')),
-              elevation: 4,
+        home: Scaffold(
+            appBar: AppBar(
+              title: Text('Flutter Demo'),
             ),
-            Card(
-              child: Text('List of TX'),
-            )
-          ],
-        ));
+            body: Column(
+              children: <Widget>[
+                Card(
+                  child: Text('CHART'),
+                  // child: Container(  one way is wrapping the child the other is wrapping the parent
+                  //     color: Colors.blue,
+                  //     width: double.infinity,
+                  //     child: Text('CHART')),
+                  elevation: 4,
+                ),
+                Card(
+                  child: Text('List of TX'),
+                )
+              ],
+            )));
   }
 }
