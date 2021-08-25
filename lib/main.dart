@@ -1,3 +1,4 @@
+import 'package:expence_tracker/transaction.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -5,6 +6,10 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final List<Transaction> transaction = [
+    Transaction(
+        id: 't1', title: 'New shoes', amount: 49.9, date: DateTime.now())
+  ];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
