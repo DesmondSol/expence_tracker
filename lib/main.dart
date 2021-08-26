@@ -15,6 +15,13 @@ class MyApp extends StatelessWidget {
     Transaction(
         id: 't4', title: 'New phone', amount: 149.9, date: DateTime.now())
   ];
+
+  // late String ttlInput;
+  // late String amntInput;
+  // or just use a built in method for value getting with byilt in feature
+  final titleController = TextEditingController();
+  final amountContoller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -47,13 +54,20 @@ class MyApp extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
                         TextField(
+                          controller: titleController,
+                          //     onChanged: (val) => ttlInput = val,
                           decoration: InputDecoration(labelText: "Title"),
                         ),
                         TextField(
+                          controller: amountContoller,
+                          //      onChanged: (val) => amntInput = val,
                           decoration: InputDecoration(labelText: "Amount"),
                         ),
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              print(titleController.text);
+                              print(amountContoller.text);
+                            },
                             child: Text(
                               'Add Transactions',
                               style: TextStyle(color: Colors.teal),
