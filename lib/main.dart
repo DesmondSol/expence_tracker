@@ -24,7 +24,8 @@ class MyApp extends StatelessWidget {
             appBar: AppBar(
               title: Text('Flutter Demo'),
             ),
-            body: Column(
+            body: SingleChildScrollView(
+                child: Column(
               // mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
@@ -40,6 +41,6 @@ class MyApp extends StatelessWidget {
                 ),
                 UserTransactions()
               ],
-            )));
+            ))));
   }
 }
