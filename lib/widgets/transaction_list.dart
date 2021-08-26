@@ -12,7 +12,7 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 400,
       child: ListView.builder(
 // Container( //we can use this scrollable here this way
 //
@@ -27,7 +27,7 @@ class TransactionList extends StatelessWidget {
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.teal, width: 2)),
                 child: Text(
-                  '\$${transaction[index].amount}',
+                  '\$${transaction[index].amount.toStringAsFixed(2)}',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
