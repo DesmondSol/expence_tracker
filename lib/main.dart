@@ -9,15 +9,26 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Expense Tracker',
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
   // late String ttlInput;
   // late String amntInput;
   // or just use a built in method for value getting with byilt in feature
   @override
-  _MyAppState createState() => _MyAppState();
+  MyHomeePage createState() => MyHomeePage();
 }
 
-class _MyAppState extends State<MyApp> {
+class MyHomeePage extends State<MyHomePage> {
   final _messangerKey = GlobalKey<ScaffoldMessengerState>();
 
   final List<Transaction> _userTran = [
@@ -57,73 +68,73 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        scaffoldMessengerKey: _messangerKey,
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: Scaffold(
-            appBar: AppBar(
-              //actionsIconTheme: IconThemeData(color: Colors.white10, size: 36),
-              backgroundColor: Colors.teal,
-              actions: <Widget>[
-                IconButton(
-                    icon: const Icon(Icons.add),
-                    tooltip: 'Add',
-                    onPressed: () {
-                      _startAddNewTransaction(context);
-                    }
-                    //     _startAddNewTransaction(co): Builder(
-                    // builder: (context) => _startAddNewTransaction(context)
-                    ),
-                IconButton(
-                  icon: const Icon(Icons.account_box_outlined),
-                  tooltip: 'About creators',
-                  onPressed: () {
-                    _messangerKey.currentState!.showSnackBar(const SnackBar(
-                      content: Text(
-                        'made by Solomon T \n contact me: soltig66@gmail.com',
-                        textAlign: TextAlign.center,
-                      ),
-                      backgroundColor: Colors.teal,
-                      //      duration: Duration(milliseconds: 200),
-                    ));
-                  },
+    return Scaffold(
+        // scaffoldMessengerKey: _messangerKey,
+        //  debugShowCheckedModeBanner: false,
+        //    title: 'Flutter Demo',
+        //    theme: ThemeData(
+        //     primarySwatch: Colors.blue,
+        //   ),
+
+        appBar: AppBar(
+          //actionsIconTheme: IconThemeData(color: Colors.white10, size: 36),
+          backgroundColor: Colors.teal,
+          actions: <Widget>[
+            IconButton(
+                icon: const Icon(Icons.add),
+                tooltip: 'Add',
+                onPressed: () {
+                  _startAddNewTransaction(context);
+                }
+                //     _startAddNewTransaction(co): Builder(
+                // builder: (context) => _startAddNewTransaction(context)
                 ),
-              ],
-              leading: Icon(Icons.access_time_sharp),
-              leadingWidth: 70,
-              title: const Text('Expense Planner'),
-              centerTitle: true,
-            ),
-            body: SingleChildScrollView(
-                //for full screen scroll
-                child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  width: double.infinity,
-                  child: Card(
-                    child: Text('CHART'),
-                    color: Colors.blue,
-                    // child: Container(  one way is wrapping the child the other is wrapping the parent
-                    //     width: double.infinity,
-                    //     child: Text('CHART')),
-                    elevation: 4,
+            IconButton(
+              icon: const Icon(Icons.account_box_outlined),
+              tooltip: 'About creators',
+              onPressed: () {
+                final snackBar = SnackBar(
+                  content: Text(
+                    'made by Solomon T \n contact me: soltig66@gmail.com',
+                    textAlign: TextAlign.center,
                   ),
-                ),
-                TransactionList(_userTran)
-              ],
-            )),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: Builder(
-              builder: (context) => FloatingActionButton(
-                onPressed: () => _startAddNewTransaction(context),
-                child: Icon(Icons.add),
+                  backgroundColor: Colors.teal,
+                  //      duration: Duration(milliseconds: 200),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
+            ),
+          ],
+          leading: Icon(Icons.access_time_sharp),
+          leadingWidth: 70,
+          title: const Text('Expense Planner'),
+          centerTitle: true,
+        ),
+        body: SingleChildScrollView(
+            //for full screen scroll
+            child: Column(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              child: Card(
+                child: Text('CHART'),
+                color: Colors.blue,
+                // child: Container(  one way is wrapping the child the other is wrapping the parent
+                //     width: double.infinity,
+                //     child: Text('CHART')),
+                elevation: 4,
               ),
-            )));
+            ),
+            TransactionList(_userTran)
+          ],
+        )),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Builder(
+          builder: (context) => FloatingActionButton(
+            onPressed: () => _startAddNewTransaction(context),
+            child: Icon(Icons.add),
+          ),
+        ));
   }
 }
