@@ -46,11 +46,12 @@ class _MyAppState extends State<MyApp> {
     showModalBottomSheet<void>(
         context: context,
         builder: (BuildContext context) {
-          // context:
-          // context;
-          // builder:
-          // (_) {};
-          return NewTransaction(_addNewTransa);
+          //  return NewTransaction(_addNewTransa);
+          return GestureDetector(
+            onTap: () {},
+            child: NewTransaction(_addNewTransa),
+            behavior: HitTestBehavior.opaque,
+          );
         });
   }
 
