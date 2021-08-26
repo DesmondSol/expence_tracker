@@ -12,6 +12,13 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      //
+
+// Container( //we can use this scrollable here this way
+//       height: 300,
+//       child: SingleChildScrollView(
+//         child:
+
       children: transaction.map((tx) {
         return Card(
             child: Row(

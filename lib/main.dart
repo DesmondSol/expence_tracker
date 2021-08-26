@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
               title: Text('Flutter Demo'),
             ),
             body: SingleChildScrollView(
+                //for full screen scroll
                 child: Column(
               // mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
