@@ -1,5 +1,6 @@
 import 'package:expence_tracker/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
               title: Text('Flutter Demo'),
             ),
             body: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
                   width: double.infinity,
@@ -37,6 +38,28 @@ class MyApp extends StatelessWidget {
                     //     width: double.infinity,
                     //     child: Text('CHART')),
                     elevation: 4,
+                  ),
+                ),
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        TextField(
+                          decoration: InputDecoration(labelText: "Title"),
+                        ),
+                        TextField(
+                          decoration: InputDecoration(labelText: "Amount"),
+                        ),
+                        TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              'Add Transactions',
+                              style: TextStyle(color: Colors.teal),
+                            ))
+                      ],
+                    ),
                   ),
                 ),
                 Column(
@@ -50,7 +73,7 @@ class MyApp extends StatelessWidget {
                           decoration: BoxDecoration(
                               border: Border.all(color: Colors.teal, width: 2)),
                           child: Text(
-                            tx.amount.toString(),
+                            '\$${tx.amount}',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
@@ -64,10 +87,15 @@ class MyApp extends StatelessWidget {
                             Text(
                               tx.title,
                               style: TextStyle(
+                                  color: Colors.teal[700],
                                   fontSize: 18 - 2,
                                   fontWeight: FontWeight.bold),
                             ),
-                            Text(tx.date.toString())
+                            Text(
+                              DateFormat.yMMMd().format(
+                                  tx.date), //'yyyy-MM-dd date constructor
+                              style: TextStyle(color: Colors.blueGrey),
+                            )
                           ],
                         )
                       ],
