@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 
-class NewTransaction extends StatelessWidget {
+// consider converting to stateful widget if stg is not working
+class NewTransaction extends StatefulWidget {
 //  const NewTransaction({ Key? key }) : super(key: key);
   final Function addtx;
-  final titleController = TextEditingController();
-  final amountContoller = TextEditingController();
 
   NewTransaction(this.addtx);
+
+  @override
+  _NewTransactionState createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
+  final titleController = TextEditingController();
+
+  final amountContoller = TextEditingController();
 
   void submitData() {
     if (titleController.text.isEmpty || amountContoller.text.isEmpty) {
@@ -21,7 +29,8 @@ class NewTransaction extends StatelessWidget {
       print('please enter realistic values');
       return;
     }
-    addtx(enteredTitle, enteredAmnt);
+    widget.addtx(enteredTitle, enteredAmnt);
+    Navigator.of(context).pop();
   }
 
   @override
@@ -50,7 +59,7 @@ class NewTransaction extends StatelessWidget {
                 onPressed: submitData,
                 child: Text(
                   'Add Transactions',
-                  style: TextStyle(color: Colors.teal),
+                  style: TextStyle(color: Theme.of(context).primaryColor),
                 ))
           ],
         ),

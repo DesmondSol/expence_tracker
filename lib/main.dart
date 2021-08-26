@@ -15,7 +15,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Expense Tracker',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+        accentColor: Colors.amberAccent,
+      ),
       home: MyHomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -29,8 +34,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomeePage extends State<MyHomePage> {
-  final _messangerKey = GlobalKey<ScaffoldMessengerState>();
-
   final List<Transaction> _userTran = [
     Transaction(
         id: '1', title: 'New shoes', amount: 49.9, date: DateTime.now()),
@@ -78,7 +81,7 @@ class MyHomeePage extends State<MyHomePage> {
 
         appBar: AppBar(
           //actionsIconTheme: IconThemeData(color: Colors.white10, size: 36),
-          backgroundColor: Colors.teal,
+          backgroundColor: Theme.of(context).primaryColor,
           actions: <Widget>[
             IconButton(
                 icon: const Icon(Icons.add),
@@ -98,7 +101,7 @@ class MyHomeePage extends State<MyHomePage> {
                     'made by Solomon T \n contact me: soltig66@gmail.com',
                     textAlign: TextAlign.center,
                   ),
-                  backgroundColor: Colors.teal,
+                  backgroundColor: Theme.of(context).primaryColor,
                   //      duration: Duration(milliseconds: 200),
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -119,7 +122,7 @@ class MyHomeePage extends State<MyHomePage> {
               width: double.infinity,
               child: Card(
                 child: Text('CHART'),
-                color: Colors.blue,
+                color: Theme.of(context).primaryColor,
                 // child: Container(  one way is wrapping the child the other is wrapping the parent
                 //     width: double.infinity,
                 //     child: Text('CHART')),
