@@ -19,9 +19,18 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.red,
           accentColor: Colors.amberAccent,
           fontFamily: 'Exo2',
+          textTheme: ThemeData.light().textTheme.copyWith(
+              headline6: TextStyle(
+                  fontFamily: 'Exo2',
+                  fontSize: 17,
+                  fontWeight: FontWeight.normal)),
           appBarTheme: AppBarTheme(
               textTheme: ThemeData.light().textTheme.copyWith(
-                  headline6: TextStyle(fontFamily: 'Kanit', fontSize: 20)))),
+                      headline6: TextStyle(
+                    fontFamily: 'AdventPro',
+                    fontSize: 18,
+                    //   fontWeight: FontWeight.bold
+                  )))),
       home: MyHomePage(),
       debugShowCheckedModeBanner: false,
     );
@@ -114,7 +123,7 @@ class MyHomeePage extends State<MyHomePage> {
           leading: Icon(Icons.access_time_sharp),
           leadingWidth: 70,
           title: const Text('Expense Planner'),
-          centerTitle: true,
+          //  centerTitle: true,
         ),
         body: SingleChildScrollView(
             //for full screen scroll

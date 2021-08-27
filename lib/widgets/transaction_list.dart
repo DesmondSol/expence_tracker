@@ -39,13 +39,13 @@ class TransactionList extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    transaction[index].title,
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: 18 - 2,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  Text(transaction[index].title,
+                      style: Theme.of(context).textTheme.headline6),
+                  // TextStyle(
+                  //       color: Theme.of(context).primaryColor,
+                  //       fontSize: 18 - 2,
+                  //       fontWeight: FontWeight.bold),
+                  // ),
                   Text(
                     DateFormat.yMMMd().format(
                         transaction[index].date), //'yyyy-MM-dd date constructor

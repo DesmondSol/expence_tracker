@@ -69,11 +69,11 @@ flutter:
         - asset: assets/fonts/Exo2-Thin.ttf
 
           style: italic
-    - family: Kanit
+    - family: AdventPro
       fonts:
-        - asset: assets/fonts/Kanit-Bold.ttf
-        - asset: assets/fonts/Kanit-Regular.ttf
-          weight: 700
+        - asset: assets/fonts/AdventPro-Bold.ttf
+        - asset: assets/fonts/AdventPro-Regular.ttf
+          #weight: 700
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
