@@ -12,7 +12,7 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 400,
+      height: 400 + 100,
       child: ListView.builder(
 // Container( //we can use this scrollable here this way
 //
