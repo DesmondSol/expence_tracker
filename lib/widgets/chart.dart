@@ -41,16 +41,22 @@ class Chart extends StatelessWidget {
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(20),
-      child: Row(
-        children: groupedTransVals.map((e) {
-          return ChartBar(
-              e['day'] as String,
-              e['amount'] as double,
-              totalSpending == 0.0        //so that dividing by zero doesnt happen
-                  ? 0.0
-                  : (e["amount"] as double) /   
-                      totalSpending); //Text('${e['day']}: ${e['amount']}'); 
-        }).toList(),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: groupedTransVals.map((e) {
+            return Flexible(
+              fit: FlexFit.tight,
+              child: ChartBar(
+                  e['day'] as String,
+                  e['amount'] as double,
+                  totalSpending == 0.0 //so that dividing by zero doesnt happen
+                      ? 0.0
+                      : (e["amount"] as double) / totalSpending),
+            ); //Text('${e['day']}: ${e['amount']}');
+          }).toList(),
+        ),
       ),
     );
   }
