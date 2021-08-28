@@ -2,7 +2,7 @@ import './widgets/transaction_list.dart';
 
 import './widgets/new_transaction.dart';
 import 'package:flutter/material.dart';
-
+import './widgets/chart.dart';
 import 'models/transaction.dart';
 
 void main() {
@@ -54,6 +54,16 @@ class MyHomeePage extends State<MyHomePage> {
     //   Transaction(
     //       id: '3', title: 'New phone', amount: 149.9, date: DateTime.now())
   ];
+
+  List<Transaction> get _recentTrans {
+    return _userTran.where((tx) {
+      return tx.date.isAfter(
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      );
+    }).toList();
+  }
 
   void _addNewTransa(String txtitle, double txamount) {
     int b;
@@ -136,20 +146,7 @@ class MyHomeePage extends State<MyHomePage> {
             //for full screen scroll
             child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                child: Text('CHART'),
-                color: Theme.of(context).primaryColor,
-                // child: Container(  one way is wrapping the child the other is wrapping the parent
-                //     width: double.infinity,
-                //     child: Text('CHART')),
-                elevation: 4,
-              ),
-            ),
-            TransactionList(_userTran)
-          ],
+          children: <Widget>[Chart(_recentTrans), TransactionList(_userTran)],
         )),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Builder(
