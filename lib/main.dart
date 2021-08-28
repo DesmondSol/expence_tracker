@@ -47,16 +47,23 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomeePage extends State<MyHomePage> {
   final List<Transaction> _userTran = [
-    Transaction(
-        id: '1', title: 'New shoes', amount: 49.9, date: DateTime.now()),
-    Transaction(
-        id: '2', title: 'New slippers', amount: 9.9, date: DateTime.now()),
-    Transaction(
-        id: '3', title: 'New phone', amount: 149.9, date: DateTime.now())
+    //   Transaction(
+    //       id: '1', title: 'New shoes', amount: 49.9, date: DateTime.now()),
+    //   Transaction(
+    //       id: '2', title: 'New slippers', amount: 9.9, date: DateTime.now()),
+    //   Transaction(
+    //       id: '3', title: 'New phone', amount: 149.9, date: DateTime.now())
   ];
 
   void _addNewTransa(String txtitle, double txamount) {
-    int b = int.parse(_userTran.last.id) + 1;
+    int b;
+    if (_userTran.isEmpty) {
+      b = 1;
+      print(b);
+    } else {
+      b = int.parse(_userTran.last.id) + 1;
+    }
+    // print('$b $txtitle $txamount');
     final newTx = Transaction(
         id: b.toString(),
         title: txtitle,
