@@ -26,11 +26,11 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.normal)),
           appBarTheme: AppBarTheme(
               textTheme: ThemeData.light().textTheme.copyWith(
-                      headline6: TextStyle(
-                    fontFamily: 'AdventPro',
-                    fontSize: 18,
-                    //   fontWeight: FontWeight.bold
-                  )))),
+                  headline6: TextStyle(
+                      fontFamily: 'AdventPro',
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)))),
       home: MyHomePage(),
       debugShowCheckedModeBanner: false,
     );
