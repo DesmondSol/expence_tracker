@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 // consider converting to stateful widget if stg is not working
@@ -20,6 +21,14 @@ class _NewTransactionState extends State<NewTransaction> {
   void _submitData() {
     if (_titleController.text.isEmpty || _amountContoller.text.isEmpty) {
       print('please enter values');
+      Fluttertoast.showToast(
+          msg: "please enter values",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
       return;
     }
     final enteredTitle = _titleController.text;
@@ -28,9 +37,17 @@ class _NewTransactionState extends State<NewTransaction> {
     // double.parse(amountContoller.text)
     if (enteredAmnt <= 0) {
       print('please enter realistic values');
+      Fluttertoast.showToast(
+          msg: "please enter realistic values",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
       return;
     }
-    widget.addtx(enteredTitle, enteredAmnt,_selectedDate);
+    widget.addtx(enteredTitle, enteredAmnt, _selectedDate);
     Navigator.of(context).pop();
   }
 
@@ -66,7 +83,7 @@ class _NewTransactionState extends State<NewTransaction> {
             ),
             TextField(
               controller: _amountContoller,
-              onSubmitted: (_) => _submitData(),
+              //onSubmitted: (_) => _submitData(),
 
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               //      onChanged: (val) => amntInput = val,  is an alternative to thr controller above
