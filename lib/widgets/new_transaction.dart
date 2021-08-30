@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 // consider converting to stateful widget if stg is not working
 class NewTransaction extends StatefulWidget {
@@ -12,25 +13,41 @@ class NewTransaction extends StatefulWidget {
 }
 
 class _NewTransactionState extends State<NewTransaction> {
-  final titleController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _amountContoller = TextEditingController();
+  DateTime _selectedDate = DateTime.now();
 
-  final amountContoller = TextEditingController();
-
-  void submitData() {
-    if (titleController.text.isEmpty || amountContoller.text.isEmpty) {
+  void _submitData() {
+    if (_titleController.text.isEmpty || _amountContoller.text.isEmpty) {
       print('please enter values');
       return;
     }
-    final enteredTitle = titleController.text;
-    final enteredAmnt = double.parse(amountContoller.text);
+    final enteredTitle = _titleController.text;
+    final enteredAmnt = double.parse(_amountContoller.text);
     // addtx(titleController.text,  // another way of putting it
     // double.parse(amountContoller.text)
     if (enteredAmnt <= 0) {
       print('please enter realistic values');
       return;
     }
-    widget.addtx(enteredTitle, enteredAmnt);
+    widget.addtx(enteredTitle, enteredAmnt,_selectedDate);
     Navigator.of(context).pop();
+  }
+
+  void _presentDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(DateTime.now().year - 1),
+      lastDate: DateTime(DateTime.now().year + 1),
+    ).then((value) {
+      if (value == null) {
+        return;
+      }
+      setState(() {
+        _selectedDate = value;
+      });
+    });
   }
 
   @override
@@ -42,24 +59,53 @@ class _NewTransactionState extends State<NewTransaction> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             TextField(
-              controller: titleController,
+              controller: _titleController,
               //     onChanged: (val) => ttlInput = val,
-              onSubmitted: (_) => submitData(),
+              onSubmitted: (_) => _submitData(),
               decoration: InputDecoration(labelText: "Title"),
             ),
             TextField(
-              controller: amountContoller,
-              onSubmitted: (_) => submitData(),
+              controller: _amountContoller,
+              onSubmitted: (_) => _submitData(),
 
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               //      onChanged: (val) => amntInput = val,  is an alternative to thr controller above
               decoration: InputDecoration(labelText: "Amount"),
             ),
-            TextButton(
-                onPressed: submitData,
+            Container(
+              height: 70,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      // _selectedDate == null
+                      //     ? 'No Date Chosen':
+                      'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  TextButton(
+                    onPressed: _presentDatePicker,
+                    child: Text(
+                      'Choose Date',
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).primaryColor,
+                    onPrimary: Theme.of(context).textTheme.button!.color),
+                onPressed: _submitData,
                 child: Text(
                   'Add Transactions',
-                  style: TextStyle(color: Theme.of(context).primaryColor),
+                  //   style: TextStyle(
+                  //       color: Theme.of(context).textTheme.button!.color),
                 ))
           ],
         ),

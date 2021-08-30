@@ -23,6 +23,10 @@ class MyApp extends StatelessWidget {
               headline6: TextStyle(
                   fontFamily: 'Exo2',
                   fontSize: 17,
+                  fontWeight: FontWeight.normal),
+              button: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Exo2',
                   fontWeight: FontWeight.normal)),
           appBarTheme: AppBarTheme(
               textTheme: ThemeData.light().textTheme.copyWith(
@@ -65,20 +69,21 @@ class MyHomeePage extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransa(String txtitle, double txamount) {
+  void _addNewTransa(String txtitle, double txamount, DateTime chosenDate) {
     int b;
     if (_userTran.isEmpty) {
       b = 1;
-      print(b);
+      //print(b);
     } else {
       b = int.parse(_userTran.last.id) + 1;
     }
     // print('$b $txtitle $txamount');
     final newTx = Transaction(
-        id: b.toString(),
-        title: txtitle,
-        amount: txamount,
-        date: DateTime.now());
+      id: b.toString(),
+      title: txtitle,
+      amount: txamount,
+      date: chosenDate,
+    );
 
     setState(() {
       _userTran.add(newTx);
