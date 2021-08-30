@@ -91,6 +91,12 @@ class MyHomeePage extends State<MyHomePage> {
     });
   }
 
+  void deleteTransaction(String id) {
+    setState(() {
+      _userTran.removeWhere((element) => element.id == id);
+    });
+  }
+
   void _startAddNewTransaction(BuildContext context) {
     showModalBottomSheet<void>(
         context: context,
@@ -152,7 +158,7 @@ class MyHomeePage extends State<MyHomePage> {
             //for full screen scroll
             child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[Chart(_recentTrans), TransactionList(_userTran)],
+          children: <Widget>[Chart(_recentTrans), TransactionList(_userTran,deleteTransaction)],
         )),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Builder(
