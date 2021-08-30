@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.red,
           accentColor: Colors.amberAccent,
+          errorColor: Colors.redAccent,
           fontFamily: 'Exo2',
           textTheme: ThemeData.light().textTheme.copyWith(
               headline6: TextStyle(

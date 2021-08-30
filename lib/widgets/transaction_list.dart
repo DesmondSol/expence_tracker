@@ -28,50 +28,34 @@ class TransactionList extends StatelessWidget {
               ],
             )
           : ListView.builder(
-// Container( //we can use this scrollable here this way
-//
-//       child: SingleChildScrollView(
-//         child: Column(
               itemBuilder: (ctx, index) {
                 return Card(
-                    child: Row(
-                  children: <Widget>[
-                    Container(
-                      margin:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Theme.of(context).primaryColor, width: 2)),
-                      child: FittedBox(
-                        child: Text(
-                          '\$${transaction[index].amount.toStringAsFixed(2)}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Theme.of(context).primaryColor),
-                        ),
+                  elevation: 5,
+                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
+                        padding: EdgeInsets.all(6),
+                        child: FittedBox(
+                            child: Text(
+                                '\$${transaction[index].amount.toStringAsFixed(2)}')),
                       ),
-                      padding: EdgeInsets.all(10),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(transaction[index].title,
-                            style: Theme.of(context).textTheme.headline6),
-                        // TextStyle(
-                        //       color: Theme.of(context).primaryColor,
-                        //       fontSize: 18 - 2,
-                        //       fontWeight: FontWeight.bold),
-                        // ),
-                        Text(
-                          DateFormat.yMMMd().format(transaction[index]
-                              .date), //'yyyy-MM-dd date constructor
-                          style: TextStyle(color: Colors.blueGrey),
-                        )
-                      ],
-                    )
-                  ],
-                ));
+                    title: Text(transaction[index].title,
+                        style: Theme.of(context).textTheme.headline6),
+                    subtitle: Text(
+                      DateFormat.yMMMd().format(transaction[index]
+                          .date), //'yyyy-MM-dd date constructor
+                      style: TextStyle(color: Colors.blueGrey),
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete_outline),
+                      color: Theme.of(context).errorColor,
+                      onPressed: () {},
+                    ),
+                  ),
+                );
               },
               itemCount: transaction.length,
               //  children: transaction.map((tx) {}).toList(),
@@ -79,3 +63,46 @@ class TransactionList extends StatelessWidget {
     );
   }
 }
+
+ //custom card design
+
+//  return Card(
+//                     child: Row(
+//                   children: <Widget>[
+//                     Container(
+//                       margin:
+//                           EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+//                       decoration: BoxDecoration(
+//                           border: Border.all(
+//                               color: Theme.of(context).primaryColor, width: 2)),
+//                       child: FittedBox(
+//                         child: Text(
+//                           '\$${transaction[index].amount.toStringAsFixed(2)}',
+//                           style: TextStyle(
+//                               fontWeight: FontWeight.bold,
+//                               fontSize: 20,
+//                               color: Theme.of(context).primaryColor),
+//                         ),
+//                       ),
+//                       padding: EdgeInsets.all(10),
+//                     ),
+//                     Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: <Widget>[
+//                         Text(transaction[index].title,
+//                             style: Theme.of(context).textTheme.headline6),
+//                         // TextStyle(
+//                         //       color: Theme.of(context).primaryColor,
+//                         //       fontSize: 18 - 2,
+//                         //       fontWeight: FontWeight.bold),
+//                         // ),
+//                         Text(
+//                           DateFormat.yMMMd().format(transaction[index]
+//                               .date), //'yyyy-MM-dd date constructor
+//                           style: TextStyle(color: Colors.blueGrey),
+//                         )
+//                       ],
+//                     ),
+//                   ],
+//                 ),
+//                 );
