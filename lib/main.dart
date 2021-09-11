@@ -51,6 +51,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomeePage extends State<MyHomePage> {
+   @override
+  void dispose() {
+    Hive.close(); //close all
+    // Hive.box('Participants').close();
+    super.dispose();
+  }
+  
   final List<Transaction> _userTran = [
     //   Transaction(
     //       id: '1', title: 'New shoes', amount: 49.9, date: DateTime.now()),
@@ -86,9 +93,12 @@ class MyHomeePage extends State<MyHomePage> {
       date: chosenDate,
     );
 
-    setState(() {
-      _userTran.add(newTx);
-    });
+    // setState(() {
+    //   _userTran.add(newTx);
+    // });
+
+    final box = Boxes.getTransactions();
+    box.add(newTx); //I am here
   }
 
   void deleteTransaction(String id) {
@@ -158,7 +168,15 @@ class MyHomeePage extends State<MyHomePage> {
             //for full screen scroll
             child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[Chart(_recentTrans), TransactionList(_userTran,deleteTransaction)],
+          children: <Widget>[
+            //Chart(_recentTrans), TransactionList(_userTran,deleteTransaction)
+             ValueListenableBuilder<Box<Transaction>>(
+                valueListenable: Boxes.getTransactions().listenable(),
+                builder: (context, box, _) {
+                  final transactions = box.values.toList().cast<Transaction>();
+                  return TransactionList(transactions, deleteTransaction);
+                })
+            ],
         )),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Builder(
