@@ -52,7 +52,7 @@ class TransactionList extends StatelessWidget {
                     trailing: IconButton(
                       icon: Icon(Icons.delete_outline),
                       color: Theme.of(context).errorColor,
-                      onPressed: () => deleteTx(transaction[index].delete()),
+                      onPressed: () => deleteTx(transaction[index]),
                     ),
                   ),
                 );

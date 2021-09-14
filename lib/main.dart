@@ -108,6 +108,9 @@ class MyHomeePage extends State<MyHomePage> {
 
     final box = Boxes.getTransactions();
     box.add(newTx); //I am here
+    setState(() {
+      //  _recentTrans;
+    });
   }
 
   void editTransaction(
@@ -125,9 +128,9 @@ class MyHomeePage extends State<MyHomePage> {
 
   void deleteTransaction(Transaction transaction) {
     transaction.delete();
-    // setState(() {
-    //   _userTran.removeWhere((element) => element.id == id);
-    // });
+    setState(() {
+      //   _userTran.removeWhere((element) => element.id == id);
+    });
   }
 
   void _startAddNewTransaction(BuildContext context) {
@@ -143,11 +146,11 @@ class MyHomeePage extends State<MyHomePage> {
         });
   }
 
-  void updateChart() {
-    setState(() {
-      Chart(_recentTrans);
-    });
-  }
+  // void updateChart() {
+  //   setState(() {
+  //     Chart(_recentTrans);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
