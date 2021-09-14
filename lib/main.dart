@@ -143,6 +143,12 @@ class MyHomeePage extends State<MyHomePage> {
         });
   }
 
+  void updateChart() {
+    setState(() {
+      Chart(_recentTrans);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -192,7 +198,9 @@ class MyHomeePage extends State<MyHomePage> {
             child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            // Chart(_recentTrans),
             Chart(_recentTrans),
+
             //Chart(_recentTrans), TransactionList(_userTran,deleteTransaction)
             ValueListenableBuilder<Box<Transaction>>(
                 valueListenable: Boxes.getTransactions().listenable(),
