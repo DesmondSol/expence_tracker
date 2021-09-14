@@ -1,11 +1,18 @@
 import './widgets/transaction_list.dart';
-
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import './widgets/new_transaction.dart';
 import 'package:flutter/material.dart';
 import './widgets/chart.dart';
 import 'models/transaction.dart';
+import 'widgets/boxes.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(TransactionAdapter());
+  await Hive.openBox<Transaction>('Participants');
+
   runApp(MyApp());
 }
 
@@ -51,13 +58,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomeePage extends State<MyHomePage> {
-   @override
+  @override
   void dispose() {
     Hive.close(); //close all
     // Hive.box('Participants').close();
     super.dispose();
   }
-  
+
   final List<Transaction> _userTran = [
     //   Transaction(
     //       id: '1', title: 'New shoes', amount: 49.9, date: DateTime.now()),
@@ -168,15 +175,15 @@ class MyHomeePage extends State<MyHomePage> {
             //for full screen scroll
             child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: <Widget>[Chart(_recentTrans),
             //Chart(_recentTrans), TransactionList(_userTran,deleteTransaction)
-             ValueListenableBuilder<Box<Transaction>>(
+            ValueListenableBuilder<Box<Transaction>>(
                 valueListenable: Boxes.getTransactions().listenable(),
                 builder: (context, box, _) {
                   final transactions = box.values.toList().cast<Transaction>();
                   return TransactionList(transactions, deleteTransaction);
                 })
-            ],
+          ],
         )),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Builder(
