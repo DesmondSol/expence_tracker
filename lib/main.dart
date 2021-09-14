@@ -65,17 +65,19 @@ class MyHomeePage extends State<MyHomePage> {
     super.dispose();
   }
 
-  final List<Transaction> _userTran = [
-    //   Transaction(
-    //       id: '1', title: 'New shoes', amount: 49.9, date: DateTime.now()),
-    //   Transaction(
-    //       id: '2', title: 'New slippers', amount: 9.9, date: DateTime.now()),
-    //   Transaction(
-    //       id: '3', title: 'New phone', amount: 149.9, date: DateTime.now())
-  ];
+  // final List<Transaction> _userTran = [
+  //   //   Transaction(
+  //   //       id: '1', title: 'New shoes', amount: 49.9, date: DateTime.now()),
+  //   //   Transaction(
+  //   //       id: '2', title: 'New slippers', amount: 9.9, date: DateTime.now()),
+  //   //   Transaction(
+  //   //       id: '3', title: 'New phone', amount: 149.9, date: DateTime.now())
+  // ];
 
   List<Transaction> get _recentTrans {
-    return _userTran.where((tx) {
+    //  return _userTran.where((tx) {
+
+    return Boxes.getTransactions().values.where((tx) {
       return tx.date.isAfter(
         DateTime.now().subtract(
           Duration(days: 7),
@@ -85,13 +87,13 @@ class MyHomeePage extends State<MyHomePage> {
   }
 
   void _addNewTransa(String txtitle, double txamount, DateTime chosenDate) {
-    int b;
-    if (_userTran.isEmpty) {
-      b = 1;
-      //print(b);
-    } else {
-      b = int.parse(_userTran.last.id) + 1;
-    }
+    int b = DateTime.now().microsecond;
+    // if (_userTran.isEmpty) {
+    //   b = 1;
+    //   //print(b);
+    // } else {
+    //   b = int.parse(_userTran.last.id) + 1;
+    // }
     // print('$b $txtitle $txamount');
     final newTx = Transaction(
       id: b.toString(),
@@ -108,10 +110,24 @@ class MyHomeePage extends State<MyHomePage> {
     box.add(newTx); //I am here
   }
 
-  void deleteTransaction(String id) {
-    setState(() {
-      _userTran.removeWhere((element) => element.id == id);
-    });
+  void editTransaction(
+    //for editing transaction  not yet applied
+    Transaction transaction,
+    String name,
+    double amount,
+    DateTime chosenDate,
+  ) {
+    transaction.title = name;
+    transaction.amount = amount;
+    transaction.date = chosenDate;
+    transaction.save();
+  }
+
+  void deleteTransaction(Transaction transaction) {
+    transaction.delete();
+    // setState(() {
+    //   _userTran.removeWhere((element) => element.id == id);
+    // });
   }
 
   void _startAddNewTransaction(BuildContext context) {
@@ -175,7 +191,8 @@ class MyHomeePage extends State<MyHomePage> {
             //for full screen scroll
             child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[Chart(_recentTrans),
+          children: <Widget>[
+            Chart(_recentTrans),
             //Chart(_recentTrans), TransactionList(_userTran,deleteTransaction)
             ValueListenableBuilder<Box<Transaction>>(
                 valueListenable: Boxes.getTransactions().listenable(),
