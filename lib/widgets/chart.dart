@@ -34,7 +34,6 @@ class Chart extends StatelessWidget {
       return previousValue + (element['amount'] as double);
     });
   }
-  
 
   @override
   Widget build(BuildContext context) {

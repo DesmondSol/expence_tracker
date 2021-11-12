@@ -1,18 +1,11 @@
 import './widgets/transaction_list.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+
 import './widgets/new_transaction.dart';
 import 'package:flutter/material.dart';
 import './widgets/chart.dart';
 import 'models/transaction.dart';
-import 'widgets/boxes.dart';
 
-Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter();
-  Hive.registerAdapter(TransactionAdapter());
-  await Hive.openBox<Transaction>('Participants');
-
+void main() {
   runApp(MyApp());
 }
 
@@ -58,26 +51,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomeePage extends State<MyHomePage> {
-  @override
-  void dispose() {
-    Hive.close(); //close all
-    // Hive.box('Participants').close();
-    super.dispose();
-  }
-
-  // final List<Transaction> _userTran = [
-  //   //   Transaction(
-  //   //       id: '1', title: 'New shoes', amount: 49.9, date: DateTime.now()),
-  //   //   Transaction(
-  //   //       id: '2', title: 'New slippers', amount: 9.9, date: DateTime.now()),
-  //   //   Transaction(
-  //   //       id: '3', title: 'New phone', amount: 149.9, date: DateTime.now())
-  // ];
+  final List<Transaction> _userTran = [
+    //   Transaction(
+    //       id: '1', title: 'New shoes', amount: 49.9, date: DateTime.now()),
+    //   Transaction(
+    //       id: '2', title: 'New slippers', amount: 9.9, date: DateTime.now()),
+    //   Transaction(
+    //       id: '3', title: 'New phone', amount: 149.9, date: DateTime.now())
+  ];
 
   List<Transaction> get _recentTrans {
-    //  return _userTran.where((tx) {
-
-    return Boxes.getTransactions().values.where((tx) {
+    return _userTran.where((tx) {
       return tx.date.isAfter(
         DateTime.now().subtract(
           Duration(days: 7),
@@ -87,13 +71,13 @@ class MyHomeePage extends State<MyHomePage> {
   }
 
   void _addNewTransa(String txtitle, double txamount, DateTime chosenDate) {
-    int b = DateTime.now().microsecond;
-    // if (_userTran.isEmpty) {
-    //   b = 1;
-    //   //print(b);
-    // } else {
-    //   b = int.parse(_userTran.last.id) + 1;
-    // }
+    int b;
+    if (_userTran.isEmpty) {
+      b = 1;
+      //print(b);
+    } else {
+      b = int.parse(_userTran.last.id) + 1;
+    }
     // print('$b $txtitle $txamount');
     final newTx = Transaction(
       id: b.toString(),
@@ -102,34 +86,14 @@ class MyHomeePage extends State<MyHomePage> {
       date: chosenDate,
     );
 
-    // setState(() {
-    //   _userTran.add(newTx);
-    // });
-
-    final box = Boxes.getTransactions();
-    box.add(newTx); //I am here
     setState(() {
-      //  _recentTrans;
+      _userTran.add(newTx);
     });
   }
 
-  void editTransaction(
-    //for editing transaction  not yet applied
-    Transaction transaction,
-    String name,
-    double amount,
-    DateTime chosenDate,
-  ) {
-    transaction.title = name;
-    transaction.amount = amount;
-    transaction.date = chosenDate;
-    transaction.save();
-  }
-
-  void deleteTransaction(Transaction transaction) {
-    transaction.delete();
+  void deleteTransaction(String id) {
     setState(() {
-      //   _userTran.removeWhere((element) => element.id == id);
+      _userTran.removeWhere((element) => element.id == id);
     });
   }
 
@@ -145,12 +109,6 @@ class MyHomeePage extends State<MyHomePage> {
           );
         });
   }
-
-  // void updateChart() {
-  //   setState(() {
-  //     Chart(_recentTrans);
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -200,18 +158,7 @@ class MyHomeePage extends State<MyHomePage> {
             //for full screen scroll
             child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Chart(_recentTrans),
-            Chart(_recentTrans),
-
-            //Chart(_recentTrans), TransactionList(_userTran,deleteTransaction)
-            ValueListenableBuilder<Box<Transaction>>(
-                valueListenable: Boxes.getTransactions().listenable(),
-                builder: (context, box, _) {
-                  final transactions = box.values.toList().cast<Transaction>();
-                  return TransactionList(transactions, deleteTransaction);
-                })
-          ],
+          children: <Widget>[Chart(_recentTrans), TransactionList(_userTran,deleteTransaction)],
         )),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Builder(
