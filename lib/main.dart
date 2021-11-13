@@ -112,6 +112,40 @@ class MyHomeePage extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      //actionsIconTheme: IconThemeData(color: Colors.white10, size: 36),
+      backgroundColor: Theme.of(context).primaryColor,
+      actions: <Widget>[
+        IconButton(
+            icon: const Icon(Icons.add),
+            tooltip: 'Add',
+            onPressed: () {
+              _startAddNewTransaction(context);
+            }
+            //     _startAddNewTransaction(co): Builder(
+            // builder: (context) => _start AddNewTransaction(context)
+            ),
+        IconButton(
+          icon: const Icon(Icons.account_box_outlined),
+          tooltip: 'About creators',
+          onPressed: () {
+            final snackBar = SnackBar(
+              content: Text(
+                'made by Solomon T \n contact me: soltig66@gmail.com',
+                textAlign: TextAlign.center,
+              ),
+              backgroundColor: Theme.of(context).primaryColor,
+              //      duration: Duration(milliseconds: 200),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          },
+        ),
+      ],
+      leading: Icon(Icons.access_time_sharp),
+      leadingWidth: 70,
+      title: const Text('Expense Planner'),
+      //  centerTitle: true,
+    );
     return Scaffold(
         // scaffoldMessengerKey: _messangerKey,
         //  debugShowCheckedModeBanner: false,
@@ -120,45 +154,23 @@ class MyHomeePage extends State<MyHomePage> {
         //     primarySwatch: Colors.blue,
         //   ),
 
-        appBar: AppBar(
-          //actionsIconTheme: IconThemeData(color: Colors.white10, size: 36),
-          backgroundColor: Theme.of(context).primaryColor,
-          actions: <Widget>[
-            IconButton(
-                icon: const Icon(Icons.add),
-                tooltip: 'Add',
-                onPressed: () {
-                  _startAddNewTransaction(context);
-                }
-                //     _startAddNewTransaction(co): Builder(
-                // builder: (context) => _startAddNewTransaction(context)
-                ),
-            IconButton(
-              icon: const Icon(Icons.account_box_outlined),
-              tooltip: 'About creators',
-              onPressed: () {
-                final snackBar = SnackBar(
-                  content: Text(
-                    'made by Solomon T \n contact me: soltig66@gmail.com',
-                    textAlign: TextAlign.center,
-                  ),
-                  backgroundColor: Theme.of(context).primaryColor,
-                  //      duration: Duration(milliseconds: 200),
-                );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              },
-            ),
-          ],
-          leading: Icon(Icons.access_time_sharp),
-          leadingWidth: 70,
-          title: const Text('Expense Planner'),
-          //  centerTitle: true,
-        ),
+        appBar: appBar,
         body: SingleChildScrollView(
             //for full screen scroll
             child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[Chart(_recentTrans), TransactionList(_userTran,deleteTransaction)],
+          children: <Widget>[
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height - MediaQuery.of(context).padding.top) *
+                    .4,
+                child: Chart(_recentTrans)),
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height - MediaQuery.of(context).padding.top) *
+                    .6,
+                child: TransactionList(_userTran, deleteTransaction))
+          ],
         )),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Builder(
