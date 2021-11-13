@@ -162,13 +162,15 @@ class MyHomeePage extends State<MyHomePage> {
           children: <Widget>[
             Container(
                 height: (MediaQuery.of(context).size.height -
-                        appBar.preferredSize.height - MediaQuery.of(context).padding.top) *
-                    .4,
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    .3,
                 child: Chart(_recentTrans)),
             Container(
                 height: (MediaQuery.of(context).size.height -
-                        appBar.preferredSize.height - MediaQuery.of(context).padding.top) *
-                    .6,
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    .7,
                 child: TransactionList(_userTran, deleteTransaction))
           ],
         )),
